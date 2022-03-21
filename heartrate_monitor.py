@@ -1,12 +1,12 @@
-
 import csv
-from dataclasses import fields
-from max30102 import MAX30102
-import hrcalc
 import threading
 import time
+from dataclasses import fields
+
 import numpy as np
-import csv
+
+import hrcalc
+from max30102 import MAX30102
 
 
 class HeartRateMonitor(object):
@@ -19,11 +19,11 @@ class HeartRateMonitor(object):
     def __init__(self, print_raw=False, print_result=False):
         self.bpm = 0
         if print_raw is True:
-            print('IR, Red')
+            print("IR, Red")
         self.print_raw = print_raw
         self.print_result = print_result
 
-    def run_sensor(self):
+    def run_sensor(self, filename="sensor_heartBeatRate.csv"):
         sensor = MAX30102()
         ir_data = []
         red_data = []
@@ -54,20 +54,19 @@ class HeartRateMonitor(object):
                         while len(bpms) > 4:
                             bpms.pop(0)
                         self.bpm = np.mean(bpms)
-                        if (np.mean(ir_data) < 50000 and np.mean(red_data) < 50000):
+                        if np.mean(ir_data) < 50000 and np.mean(red_data) < 50000:
                             self.bpm = 0
                             if self.print_result:
                                 print("Finger not detected")
                         if self.print_result:
                             print("BPM: {0}, SpO2: {1}".format(self.bpm, spo2))
-                            filename = "sensor_heartBeatRate.csv"
-    
-                            # writing to csv file 
-                            with open(filename, 'w') as csvfile: 
-                                # creating a csv writer object 
-                                csvwriter = csv.writer(csvfile) 
-                                    
-                                # writing the fields 
+
+                            # writing to csv file
+                            with open(filename, "a") as csvfile:
+                                # creating a csv writer object
+                                csvwriter = csv.writer(csvfile)
+
+                                # writing the fields
                                 fields = [self.bpm, spo2]
                                 csvwriter.writerow(fields)
 
