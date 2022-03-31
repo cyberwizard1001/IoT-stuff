@@ -109,7 +109,7 @@ class HeartRateMonitor(object):
                                 # convert into JSON:
                                 y = json.dumps(x)
                                 
-                                ref.set(y)
+                                ref.set(x)
 
                                 # the result is a JSON string:
                                 print(y)
