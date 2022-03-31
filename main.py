@@ -17,8 +17,9 @@ try:
     time.sleep(args.time)
 except KeyboardInterrupt:
     print('keyboard interrupt detected, exiting...')
+
+hrm.stop_sensor()
+print('sensor stoped!')
+
 cmd = 'python sendCSV.py'
 os.system(cmd)
-
-# hrm.stop_sensor()
-# print('sensor stoped!')
