@@ -58,6 +58,7 @@ class HeartRateMonitor(object):
         while not self._thread.stopped:
             # check if any data is available
             num_bytes = sensor.get_data_present()
+            print("num",num_bytes)
             if num_bytes > 0:
                 # grab all the data and stash it into arrays
                 while num_bytes > 0:
