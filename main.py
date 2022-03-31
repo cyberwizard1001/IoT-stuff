@@ -6,7 +6,7 @@ import os
 parser = argparse.ArgumentParser(description="Read and print data from MAX30102")
 parser.add_argument("-r", "--raw", action="store_true",
                     help="print raw data instead of calculation result")
-parser.add_argument("-t", "--time", type=int, default=30,
+parser.add_argument("-t", "--time", type=int, default=10,
                     help="duration in seconds to read from sensor, default 30")
 args = parser.parse_args()
 

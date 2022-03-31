@@ -25,5 +25,7 @@ with open(filename, 'r') as csvfile:
     # creating a csv writer object 
     reader = csv.reader(csvfile) 
     for rows in reader:
-        mydict = {rows[0]:rows[1] for rows in reader}
-print(mydict)
+        ref.set({"heartrate": rows[0],
+            "oxygen": rows[1],
+            "trigger-sentry": False
+            })

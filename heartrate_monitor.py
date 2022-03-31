@@ -38,7 +38,7 @@ class HeartRateMonitor(object):
     A class that encapsulates the max30102 device into a thread
     """
 
-    LOOP_TIME = 0.1
+    LOOP_TIME = 0.01
 
     def __init__(self, print_raw=False, print_result=False):
         self.bpm = 0
@@ -95,7 +95,7 @@ class HeartRateMonitor(object):
                                     # writing the fields 
                                     fields = [self.bpm, spo2]
                                     csvwriter.writerow(fields)
-                                    
+
 
                                 # x = {
                                 # "heartrate": self.bpm,
