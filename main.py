@@ -1,6 +1,7 @@
 from heartrate_monitor import HeartRateMonitor
 import time
 import argparse
+import os
 
 parser = argparse.ArgumentParser(description="Read and print data from MAX30102")
 parser.add_argument("-r", "--raw", action="store_true",
@@ -12,10 +13,12 @@ args = parser.parse_args()
 print('sensor starting...')
 hrm = HeartRateMonitor(print_raw=args.raw, print_result=(not args.raw))
 hrm.start_sensor()
-# try:
-#     time.sleep(args.time)
-# except KeyboardInterrupt:
-#     print('keyboard interrupt detected, exiting...')
+try:
+    time.sleep(args.time)
+except KeyboardInterrupt:
+    print('keyboard interrupt detected, exiting...')
+cmd = 'python sendCSV.py'
+os.system(cmd)
 
 # hrm.stop_sensor()
 # print('sensor stoped!')
