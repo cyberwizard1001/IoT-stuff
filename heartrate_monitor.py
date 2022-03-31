@@ -80,39 +80,39 @@ class HeartRateMonitor(object):
                         bpms.append(bpm)
                         while len(bpms) > 4:
                             bpms.pop(0)
-                        self.bpm = np.mean(bpms)
-                        if np.mean(ir_data) < 50000 and np.mean(red_data) < 50000:
-                            self.bpm = 0
+                            self.bpm = np.mean(bpms)
+                            if np.mean(ir_data) < 50000 and np.mean(red_data) < 50000:
+                                self.bpm = 0
+                                if self.print_result:
+                                    print("Finger not detected")
                             if self.print_result:
-                                print("Finger not detected")
-                        if self.print_result:
 
-                            print("BPM: {0}, SpO2: {1}".format(self.bpm, spo2))
-                            # filename = "sensor_heartBeatRate.csv"
-    
-                            # writing to csv file 
-                            # with open(filename, 'w') as csvfile: 
-                            #     # creating a csv writer object 
-                            #     csvwriter = csv.writer(csvfile) 
-                                    
-                            #     # writing the fields 
-                            #     fields = [self.bpm, spo2]
-                            #     csvwriter.writerow(fields)
+                                print("BPM: {0}, SpO2: {1}".format(self.bpm, spo2))
+                                # filename = "sensor_heartBeatRate.csv"
+        
+                                # writing to csv file 
+                                # with open(filename, 'w') as csvfile: 
+                                #     # creating a csv writer object 
+                                #     csvwriter = csv.writer(csvfile) 
+                                        
+                                #     # writing the fields 
+                                #     fields = [self.bpm, spo2]
+                                #     csvwriter.writerow(fields)
 
-                            # a Python object (dict):
-                            x = {
-                            "heartrate": self.bpm,
-                            "oxygen": spo2,
-                            "trigger-sentry": False
-                            }
+                                # a Python object (dict):
+                                x = {
+                                "heartrate": self.bpm,
+                                "oxygen": spo2,
+                                "trigger-sentry": False
+                                }
 
-                            # convert into JSON:
-                            y = json.dumps(x)
-                            
-                            ref.set(y)
+                                # convert into JSON:
+                                y = json.dumps(x)
+                                
+                                ref.set(y)
 
-                            # the result is a JSON string:
-                            print(y)
+                                # the result is a JSON string:
+                                print(y)
 
 
             time.sleep(self.LOOP_TIME)
