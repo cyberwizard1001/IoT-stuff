@@ -105,7 +105,7 @@ class HeartRateMonitor(object):
                                 })
 
 
-            time.sleep(self.LOOP_TIME)
+            # time.sleep(self.LOOP_TIME)
 
         # sensor.shutdown()
 
