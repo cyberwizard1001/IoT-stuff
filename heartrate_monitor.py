@@ -89,15 +89,20 @@ class HeartRateMonitor(object):
                                 
                                 # a Python object (dict):
                                 # use asyncio to send data to firebase
-                                event_loop = asyncio.new_event_loop()
-                                asyncio.set_event_loop(event_loop)
-                                event_loop.run_until_complete(ref.set({
+                                # event_loop = asyncio.new_event_loop()
+                                # asyncio.set_event_loop(event_loop)
+                                # event_loop.run_until_complete(ref.set({
+                                # "heartrate": self.bpm,
+                                # "oxygen": spo2,
+                                # "trigger-sentry": False
+                                # }))
+                                # event_loop.close()
+                                
+                                ref.set({
                                 "heartrate": self.bpm,
                                 "oxygen": spo2,
                                 "trigger-sentry": False
-                                }))
-                                event_loop.close()
-                                
+                                })
 
 
             time.sleep(self.LOOP_TIME)
