@@ -100,16 +100,16 @@ class HeartRateMonitor(object):
                                 #     csvwriter.writerow(fields)
 
                                 # a Python object (dict):
-                                x = {
-                                "heartrate": self.bpm,
-                                "oxygen": spo2,
-                                "trigger-sentry": False
-                                }
+                                # x = {
+                                # "heartrate": self.bpm,
+                                # "oxygen": spo2,
+                                # "trigger-sentry": False
+                                # }
                                 
-                                ref.set(x)
+                                # ref.set(x)
 
-                                # the result is a JSON string:
-                                print(x)
+                                # # the result is a JSON string:
+                                # print(x)
 
 
             time.sleep(self.LOOP_TIME)
