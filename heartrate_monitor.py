@@ -41,7 +41,7 @@ class HeartRateMonitor(object):
     A class that encapsulates the max30102 device into a thread
     """
 
-    LOOP_TIME = 0.01
+    LOOP_TIME = 0.1
 
     def __init__(self, print_raw=False, print_result=False):
         self.bpm = 0
@@ -105,14 +105,11 @@ class HeartRateMonitor(object):
                                 "oxygen": spo2,
                                 "trigger-sentry": False
                                 }
-
-                                # convert into JSON:
-                                y = json.dumps(x)
                                 
                                 ref.set(x)
 
                                 # the result is a JSON string:
-                                print(y)
+                                print(x)
 
 
             time.sleep(self.LOOP_TIME)
