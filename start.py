@@ -23,4 +23,5 @@ while True:
 
     cmd = 'python sendCSV.py'
     os.system(cmd)
+    time.sleep(10)
     os.remove("sensor_heartBeatRate.csv")
