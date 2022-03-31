@@ -12,10 +12,10 @@ args = parser.parse_args()
 print('sensor starting...')
 hrm = HeartRateMonitor(print_raw=args.raw, print_result=(not args.raw))
 hrm.start_sensor()
-try:
-    time.sleep(args.time)
-except KeyboardInterrupt:
-    print('keyboard interrupt detected, exiting...')
+# try:
+#     time.sleep(args.time)
+# except KeyboardInterrupt:
+#     print('keyboard interrupt detected, exiting...')
 
-hrm.stop_sensor()
-print('sensor stoped!')
+# hrm.stop_sensor()
+# print('sensor stoped!')
