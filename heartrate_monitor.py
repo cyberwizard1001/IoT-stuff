@@ -87,7 +87,7 @@ class HeartRateMonitor(object):
                                 print("Finger not detected")
                         if self.print_result:
 
-                            # print("BPM: {0}, SpO2: {1}".format(self.bpm, spo2))
+                            print("BPM: {0}, SpO2: {1}".format(self.bpm, spo2))
                             # filename = "sensor_heartBeatRate.csv"
     
                             # writing to csv file 
