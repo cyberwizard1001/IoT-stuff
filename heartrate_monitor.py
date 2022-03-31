@@ -67,7 +67,7 @@ class HeartRateMonitor(object):
                     red_data.append(red)
                     if self.print_raw:
                         print("{0}, {1}".format(ir, red))
-
+                print(len(ir_data))
                 while len(ir_data) > 100:
                     ir_data.pop(0)
                     red_data.pop(0)
@@ -77,7 +77,6 @@ class HeartRateMonitor(object):
                     if valid_bpm:
                         bpms.append(bpm)
                         while len(bpms) > 4:
-                            print("decodeeeee")
                             bpms.pop(0)
                             self.bpm = np.mean(bpms)
                             if np.mean(ir_data) < 50000 and np.mean(red_data) < 50000:
@@ -104,10 +103,7 @@ class HeartRateMonitor(object):
                                 "oxygen": spo2,
                                 "trigger-sentry": False
                                 })
-                                print("Data sent to firebase")
-                        print("decodeeeee222")
-            print("Data sent to firebase2")
-            # time.sleep(self.LOOP_TIME)
+            time.sleep(self.LOOP_TIME)
 
         # sensor.shutdown()
         print("Data sent to firebase3")
