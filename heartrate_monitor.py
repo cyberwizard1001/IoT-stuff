@@ -31,9 +31,6 @@ default_app = firebase_admin.initialize_app(cred_obj, {
 
 ref = db.reference("/")
 
-# heartRateRef = db.reference("heartrate")
-# spo2Ref = db.reference("spo2")
-# triggerSentryRef = db.reference("trigger-sentry")
 
 
 class HeartRateMonitor(object):
@@ -100,16 +97,16 @@ class HeartRateMonitor(object):
                                 #     csvwriter.writerow(fields)
 
                                 # a Python object (dict):
-                                x = {
-                                "heartrate": self.bpm,
-                                "oxygen": spo2,
-                                "trigger-sentry": False
-                                }
+                                # x = {
+                                # "heartrate": self.bpm,
+                                # "oxygen": spo2,
+                                # "trigger-sentry": False
+                                # }
                                 
-                                ref.set(x)
+                                # ref.set(x)
 
-                                # the result is a JSON string:
-                                print(x)
+                                # # the result is a JSON string:
+                                # print(x)
 
 
             time.sleep(self.LOOP_TIME)
