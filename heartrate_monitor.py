@@ -95,6 +95,7 @@ class HeartRateMonitor(object):
                                     # writing the fields 
                                     fields = [self.bpm, spo2]
                                     csvwriter.writerow(fields)
+                                    csvwriter.writerow("\n")
 
                                 # x = {
                                 # "heartrate": self.bpm,
