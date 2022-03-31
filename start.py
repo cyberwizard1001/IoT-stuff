@@ -1,3 +1,4 @@
+from fileinput import filename
 from heartrate_monitor import HeartRateMonitor
 import time
 import argparse
@@ -24,4 +25,6 @@ while True:
     cmd = 'python sendCSV.py'
     os.system(cmd)
     time.sleep(10)
-    os.remove("sensor_heartBeatRate.csv")
+    filename = "sensor_heartBeatRate.csv"
+    with open(filename, 'w') as f:
+        f.truncate()
