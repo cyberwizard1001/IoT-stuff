@@ -114,7 +114,7 @@ class HeartRateMonitor(object):
 
             time.sleep(self.LOOP_TIME)
 
-        sensor.shutdown()
+        # sensor.shutdown()
 
     def start_sensor(self):
         self._thread = threading.Thread(target=self.run_sensor)
