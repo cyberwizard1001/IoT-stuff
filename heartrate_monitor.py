@@ -3,6 +3,7 @@ from max30102 import MAX30102
 import hrcalc
 import threading
 import time
+import asyncio
 
 import numpy as np
 
@@ -38,7 +39,7 @@ class HeartRateMonitor(object):
     A class that encapsulates the max30102 device into a thread
     """
 
-    LOOP_TIME = 0.01
+    LOOP_TIME = 0.1
 
     def __init__(self, print_raw=False, print_result=False):
         self.bpm = 0
@@ -85,28 +86,18 @@ class HeartRateMonitor(object):
                             if self.print_result:
 
                                 print("BPM: {0}, SpO2: {1}".format(self.bpm, spo2))
-                                # filename = "sensor_heartBeatRate.csv"
-        
-                                # writing to csv file 
-                                # with open(filename, 'w') as csvfile: 
-                                #     # creating a csv writer object 
-                                #     csvwriter = csv.writer(csvfile) 
-                                        
-                                #     # writing the fields 
-                                #     fields = [self.bpm, spo2]
-                                #     csvwriter.writerow(fields)
-
-                                # a Python object (dict):
-                                # x = {
-                                # "heartrate": self.bpm,
-                                # "oxygen": spo2,
-                                # "trigger-sentry": False
-                                # }
                                 
-                                # ref.set(x)
-
-                                # # the result is a JSON string:
-                                # print(x)
+                                # a Python object (dict):
+                                # use asyncio to send data to firebase
+                                event_loop = asyncio.new_event_loop()
+                                asyncio.set_event_loop(event_loop)
+                                event_loop.run_until_complete(ref.set({
+                                "heartrate": self.bpm,
+                                "oxygen": spo2,
+                                "trigger-sentry": False
+                                }))
+                                event_loop.close()
+                                
 
 
             time.sleep(self.LOOP_TIME)
