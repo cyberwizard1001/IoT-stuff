@@ -1,5 +1,3 @@
-
-import csv
 from dataclasses import fields
 from max30102 import MAX30102
 import hrcalc
@@ -7,6 +5,21 @@ import threading
 import time
 import numpy as np
 import csv
+import json
+
+import firebase_admin
+from firebase_admin import db
+
+cred_obj = firebase_admin.credentials.Certificate('....path to file')
+default_app = firebase_admin.initialize_app(cred_object, {
+	'databaseURL':https://solutions-challenge-345805-default-rtdb.firebaseio.com/
+    })
+
+ref = db.reference("/")
+
+# heartRateRef = db.reference("heartrate")
+# spo2Ref = db.reference("spo2")
+# triggerSentryRef = db.reference("trigger-sentry")
 
 
 class HeartRateMonitor(object):
@@ -59,17 +72,33 @@ class HeartRateMonitor(object):
                             if self.print_result:
                                 print("Finger not detected")
                         if self.print_result:
-                            print("BPM: {0}, SpO2: {1}".format(self.bpm, spo2))
-                            filename = "sensor_heartBeatRate.csv"
+                            # print("BPM: {0}, SpO2: {1}".format(self.bpm, spo2))
+                            # filename = "sensor_heartBeatRate.csv"
     
                             # writing to csv file 
-                            with open(filename, 'w') as csvfile: 
-                                # creating a csv writer object 
-                                csvwriter = csv.writer(csvfile) 
+                            # with open(filename, 'w') as csvfile: 
+                            #     # creating a csv writer object 
+                            #     csvwriter = csv.writer(csvfile) 
                                     
-                                # writing the fields 
-                                fields = [self.bpm, spo2]
-                                csvwriter.writerow(fields)
+                            #     # writing the fields 
+                            #     fields = [self.bpm, spo2]
+                            #     csvwriter.writerow(fields)
+
+                            # a Python object (dict):
+                            x = {
+                            "heartrate": self.bpm,
+                            "oxygen": spo2,
+                            "trigger-sentry": False
+                            }
+
+                            # convert into JSON:
+                            y = json.dumps(x)
+                            
+                            ref.set(y)
+
+                            # the result is a JSON string:
+                            print(y)
+
 
             time.sleep(self.LOOP_TIME)
 
