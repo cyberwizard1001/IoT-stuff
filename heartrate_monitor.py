@@ -25,7 +25,7 @@ cred_obj = firebase_admin.credentials.Certificate({
   "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-lbl4o%40solutions-challenge-345805.iam.gserviceaccount.com"
 }
 )
-default_app = firebase_admin.initialize_app(cred_object, {
+default_app = firebase_admin.initialize_app(cred_obj, {
 	'databaseURL':"https://solutions-challenge-345805-default-rtdb.firebaseio.com/"
     })
 
