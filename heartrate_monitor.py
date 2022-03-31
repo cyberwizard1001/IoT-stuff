@@ -86,7 +86,12 @@ class HeartRateMonitor(object):
 
                                 print("BPM: {0}, SpO2: {1}".format(self.bpm, spo2))
                                 filename = "sensor_heartBeatRate.csv"
-        
+                                with open(filename, 'w') as f:
+                                    csvwriter = csv.writer(csvfile) 
+                                        
+                                    # writing the fields 
+                                    fields = [self.bpm, spo2]
+                                    csvwriter.writerow(fields)
                                 
                                 with open(filename, 'a') as csvfile: 
                                     # creating a csv writer object 

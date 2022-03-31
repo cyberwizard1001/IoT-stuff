@@ -26,6 +26,6 @@ with open(filename, 'r') as csvfile:
     reader = csv.reader(csvfile) 
     for rows in reader:
         ref.set({"heartrate": rows[0],
-            "oxygen": rows[1],
-            "trigger-sentry": False
+            "oxygen": rows[1]
             })
+        
