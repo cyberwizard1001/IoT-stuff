@@ -121,7 +121,7 @@ class HeartRateMonitor(object):
         self._thread.stopped = False
         self._thread.start()
 
-    def stop_sensor(self, timeout=2.0):
+    def stop_sensor(self):
         self._thread.stopped = True
         self.bpm = 0
-        self._thread.join(timeout)
+        self._thread.join()
