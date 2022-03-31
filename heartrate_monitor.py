@@ -105,7 +105,7 @@ class HeartRateMonitor(object):
                                 "trigger-sentry": False
                                 })
                                 print("Data sent to firebase")
-
+                        print("decodeeeee222")
             print("Data sent to firebase2")
             # time.sleep(self.LOOP_TIME)
 
