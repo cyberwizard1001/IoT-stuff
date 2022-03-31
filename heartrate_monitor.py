@@ -14,7 +14,7 @@ from firebase_admin import db
 
 cred_obj = firebase_admin.credentials.Certificate('....path to file')
 default_app = firebase_admin.initialize_app(cred_object, {
-	'databaseURL':https://solutions-challenge-345805-default-rtdb.firebaseio.com/
+	'databaseURL':"https://solutions-challenge-345805-default-rtdb.firebaseio.com/"
     })
 
 ref = db.reference("/")
