@@ -20,6 +20,7 @@ default_app = firebase_admin.initialize_app(cred_obj, {
     })
 
 def listener(event):
+    ref = db.reference("/")
     ref.child("monitor-mode").set(False)
     print("DATA FROM FIREBASE: ", event.data)
     print(event.event_type)  # can be 'put' or 'patch'
