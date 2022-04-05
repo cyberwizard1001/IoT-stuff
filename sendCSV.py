@@ -33,7 +33,10 @@ with open(filename, 'r') as csvfile:
     # creating a csv writer object 
     reader = csv.reader(csvfile) 
     for rows in reader:
-        ref.set({"heartrate": rows[0],
-            "oxygen": rows[1]
-            })
+        ref.child("heartrate").set(rows[0])
+        ref.child("oxygen").set(rows[1])
+
+        # ref.set({"heartrate": rows[0],
+        #     "oxygen": rows[1]
+        #     })
         
