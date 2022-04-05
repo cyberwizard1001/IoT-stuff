@@ -6,6 +6,24 @@ import os
 # from picamera import PiCamera
 import time
 from google.cloud import storage
+from oauth2client.service_account import ServiceAccountCredentials
+
+credentials_dict = {
+  "type": "service_account",
+  "project_id": "solutions-challenge-345805",
+  "private_key_id": "5b12ea5a625ee4bb4c6f59c2ca65ae2b99ddba54",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCvO7VJQgUEluSx\n2pqOmUQkREy3wp16NNe2Oy8Pu38lSwA8LZySAQAtM+OMmkNolXqL32rYt7lb8elX\nVAU/DgzPQHX6QPbhX3224w+CMzGzDibrqFRHjNqVf43h8+XEZvFuWaLOaiy0UlsS\n0eyUhwi0Y+S/cUieFaTB1mArFmV7UKuwsXN0gzlwSPm9GjXO93VQhIptGd6Pmt9u\n4RWqY77DSXVMsGGRmOcfpZdN7Q40vYPskp/3gt8f8SYnZwODTdZmNEK9hcIvfP44\neHgUWFmfJPa9mGfuXF/yuovPLp6H0RMkYLUdhMUFtHUHOgUGdQEK0bj0Tivq25lC\nwHIn20vfAgMBAAECggEAS8bpt+LNUbVA82phoN3Feltww5xsxh6Y08yXJtoBeyqK\nUPu2c+rr3SBNvA0vrkfJxTfZuBsHFKwxqFqEpEZaorsw6YXzXPWS4yYgnECwMsqh\naRITVBekpLaSsA3tI/gSWpJ3lYSTjWz5xlMyV+5nBL8X+fOun/IjG9GtJ6TZQLAj\nEKQJ3Rnb5XYESw2XNVRFTuX+XScpk4rlm/JM6lyntHBkynCc+CRlDcBu2g28qf2e\nM8g5KQjHzYZ1cckDgG/R2cRAGH83oyhARFsXireX8Gbi1CCOHMFT0wQ9mhyzHYYS\ncl5NXB/jnXGEVljEXj0mRnifbJ4Kd0nV2mRnHF6zzQKBgQDtpsA+gnGsYy5iO+YH\n1JSMeYeL2LleKh1nCa9U5tYh75CsBdSpAHUSJP8nlGLsjruCTNmKgZLu2gjvj/N9\nBJmneMa0YArimNtWacjnYxA+b03R937htenuybn2FQ+It8Bp7wM0VoB7j1DpwHud\n30hBEXGdmBOIEZVKGGnAmGWn/QKBgQC8wz6TEqKTcrwsB4H14kE/LP9y9aYQC+oe\nMpVNcUemvpMcq8jzgUnLwUy4OnQP1CxJwgbJSsKQDiKKJ12U47VCmb7IPMcUQ/nW\nH4cqfqjSO1h0H8oc6lbSqMvTlh9F2SjdfM9A7/FsgxVjTndOg/PjEPdOjXyDM1FG\nJySmlAukCwKBgAechp256dAeoRauWnC3w0Y4gjndaBp2+Nga/E2Y0xTlKloIGcaL\n6DP7kVyAKSbwb1r+AR2phr41p4Gct6yyYAV4Hc0bIl4djTDYVIHsr1GAmRp3dc3e\n2K44MceK5yN21yfNaunbN2Q9s9a4vnzQ8Ox8lYn5m+6IuaJU49YyS1c1AoGADazn\nf6g99wi88UOp+rJln7oW17FMUqVKVN29S1sFoeL0rYMUj++x9P0QHdi+R9dLThys\neTDdX6pmfjPT59GHdEfHNqKQmbtDAmxOUpnSiUibY+5ZqjagC6sG+VFK+rh86W79\nZOr9RqtIhWVN53ZP2QeFoz9E4gx5uudjFF5taXkCgYBHg/8IAZ6f79gcNBoD8X+7\nrd2dGmzkJhbztDHDRVF1W7mkiq4eoEpnAbZv860PRmAvOZbWccUbzLtER/6rIAXj\nykNny9laJHxHFHuFM+A1UxJNr5TmT5AyTBOCqrlxPa9Lw2LI0jmQZsS/Kfy19+1M\n/D3WiLaA6OwJuUTKiAoc8Q==\n-----END PRIVATE KEY-----\n",
+  "client_email": "solutions-challenge-stuff@solutions-challenge-345805.iam.gserviceaccount.com",
+  "client_id": "103377387883861479235",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/solutions-challenge-stuff%40solutions-challenge-345805.iam.gserviceaccount.com"
+}
+
+credentials = ServiceAccountCredentials.from_json_keyfile_dict(
+    credentials_dict
+)
 
 cred_obj = firebase_admin.credentials.Certificate({
   "type": "service_account",
@@ -39,7 +57,7 @@ def listener(event):
         # camera.wait_recording(10)
         # camera.stop_recording()
         # print("Done.")
-        storage_client = storage.Client()
+        storage_client = storage.Client(credentials=credentials, project='solutions-challenge-345805')
         bucket = storage_client.bucket('mysample-bucket-videos')
         cmd = 'libcamera-vid -t 60000 -o test.h264'
         for i in range(0,10):
