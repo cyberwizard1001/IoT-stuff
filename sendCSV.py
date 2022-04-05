@@ -62,8 +62,11 @@ def listener(event):
         for i in range(0,10):
             os.system(cmd)
             time.sleep(10)
-            destination_blob_name = 'video_' + str(time.time()) + '.h264'
-            source_file_name = 'test.h264'
+            command = "MP4Box -add test.h264 test.mp4"
+            os.system(command)
+            time.sleep(10)
+            destination_blob_name = 'video_' + str(time.time()) + '.mp4'
+            source_file_name = 'test.mp4'
 
             blob = bucket.blob(destination_blob_name)
             blob.upload_from_filename(source_file_name)
@@ -74,6 +77,7 @@ def listener(event):
                 )
             )
             os.system('rm test.h264')
+            os.system('rm test.mp4')
             time.sleep(5)
 
 
