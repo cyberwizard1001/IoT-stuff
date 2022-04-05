@@ -20,14 +20,14 @@ default_app = firebase_admin.initialize_app(cred_obj, {
     })
 
 def listener(event):
+    print("DATA FROM FIREBASE: ", event.data)
     print(event.event_type)  # can be 'put' or 'patch'
     print(event.path)  # relative to the reference, it seems
     print(event.data) 
 
-db.reference('', app= default_app).listen(listener)
+db.reference('monitor-mode', app= default_app).listen(listener)
 
 ref = db.reference("/")
-print(ref.get())
 filename = "sensor_heartBeatRate.csv"
 with open(filename, 'r') as csvfile: 
     # creating a csv writer object 
