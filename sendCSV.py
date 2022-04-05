@@ -1,4 +1,3 @@
-from imp import source_from_cache
 import firebase_admin
 from firebase_admin import db
 import csv
@@ -57,7 +56,7 @@ def listener(event):
         # camera.wait_recording(10)
         # camera.stop_recording()
         # print("Done.")
-        storage_client = storage.Client(credentials=credentials, project='solutions-challenge-345805')
+        storage_client = storage.Client.from_service_account_json(credentials_dict)
         bucket = storage_client.bucket('mysample-bucket-videos')
         cmd = 'libcamera-vid -t 60000 -o test.h264'
         for i in range(0,10):
