@@ -1,6 +1,8 @@
 import firebase_admin
 from firebase_admin import db
 import csv
+from picamera import PiCamera
+import time
 
 cred_obj = firebase_admin.credentials.Certificate({
   "type": "service_account",
@@ -20,8 +22,20 @@ default_app = firebase_admin.initialize_app(cred_obj, {
     })
 
 def listener(event):
-    ref = db.reference("/")
-    ref.child("monitor-mode").set(False)
+    if(event.data == True):
+        camera = PiCamera()
+        time.sleep(2)
+        camera.resolution = (1280, 720)
+        camera.vflip = True
+        camera.contrast = 10
+
+        file_name = "/home/pi/Pictures/video_" + str(time.time()) + ".h264"
+
+        print("Start recording...")
+        camera.start_recording(file_name)
+        camera.wait_recording(10)
+        camera.stop_recording()
+        print("Done.")
     print("DATA FROM FIREBASE: ", event.data)
     print(event.event_type)  # can be 'put' or 'patch'
     print(event.path)  # relative to the reference, it seems
@@ -37,5 +51,9 @@ with open(filename, 'r') as csvfile:
     for rows in reader:
         ref.child("heartrate").set(rows[0])
         ref.child("oxygen").set(rows[1])
+
+
+
+
 
         
