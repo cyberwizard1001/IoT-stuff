@@ -58,7 +58,7 @@ def listener(event):
         # print("Done.")
         storage_client = storage.Client.from_service_account_info(credentials_dict)
         bucket = storage_client.bucket('mysample-bucket-videos')
-        cmd = 'libcamera-vid -t 60000 -o test.h264'
+        cmd = 'libcamera-vid -t 7000 -o test.h264'
         for i in range(0,10):
             os.system(cmd)
             time.sleep(10)
