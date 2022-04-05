@@ -20,6 +20,7 @@ default_app = firebase_admin.initialize_app(cred_obj, {
     })
 
 def listener(event):
+    ref.child("monitor-mode").set(False)
     print("DATA FROM FIREBASE: ", event.data)
     print(event.event_type)  # can be 'put' or 'patch'
     print(event.path)  # relative to the reference, it seems
@@ -36,7 +37,4 @@ with open(filename, 'r') as csvfile:
         ref.child("heartrate").set(rows[0])
         ref.child("oxygen").set(rows[1])
 
-        # ref.set({"heartrate": rows[0],
-        #     "oxygen": rows[1]
-        #     })
         
