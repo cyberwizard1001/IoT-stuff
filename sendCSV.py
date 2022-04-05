@@ -1,8 +1,11 @@
+from imp import source_from_cache
 import firebase_admin
 from firebase_admin import db
 import csv
-from picamera import PiCamera
+import os
+# from picamera import PiCamera
 import time
+from google.cloud import storage
 
 cred_obj = firebase_admin.credentials.Certificate({
   "type": "service_account",
@@ -23,19 +26,43 @@ default_app = firebase_admin.initialize_app(cred_obj, {
 
 def listener(event):
     if(event.data == True):
-        camera = PiCamera()
-        time.sleep(2)
-        camera.resolution = (1280, 720)
-        camera.vflip = True
-        camera.contrast = 10
+        # camera = PiCamera()
+        # time.sleep(2)
+        # camera.resolution = (1280, 720)
+        # camera.vflip = True
+        # camera.contrast = 10
 
-        file_name = "/home/pi/Pictures/video_" + str(time.time()) + ".h264"
+        # file_name = "/home/pi/Pictures/video_" + str(time.time()) + ".h264"
 
-        print("Start recording...")
-        camera.start_recording(file_name)
-        camera.wait_recording(10)
-        camera.stop_recording()
-        print("Done.")
+        # print("Start recording...")
+        # camera.start_recording(file_name)
+        # camera.wait_recording(10)
+        # camera.stop_recording()
+        # print("Done.")
+        storage_client = storage.Client()
+        bucket = storage_client.bucket('mysample-bucket-videos')
+        cmd = 'libcamera-vid -t 60000 -o test.h264'
+        for i in range(0,10):
+            os.system(cmd)
+            time.sleep(10)
+            destination_blob_name = 'video_' + str(time.time()) + '.h264'
+            source_file_name = 'test.h264'
+
+            blob = bucket.blob(destination_blob_name)
+            blob.upload_from_filename(source_file_name)
+
+            print(
+                "File {} uploaded to {}.".format(
+                    source_file_name, destination_blob_name
+                )
+            )
+            os.system('rm test.h264')
+            time.sleep(5)
+
+
+                    
+
+
     print("DATA FROM FIREBASE: ", event.data)
     print(event.event_type)  # can be 'put' or 'patch'
     print(event.path)  # relative to the reference, it seems
