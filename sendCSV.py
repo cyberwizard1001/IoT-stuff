@@ -42,43 +42,43 @@ default_app = firebase_admin.initialize_app(cred_obj, {
     })
 
 def listener(event):
-    if(event.data == True):
-        # camera = PiCamera()
-        # time.sleep(2)
-        # camera.resolution = (1280, 720)
-        # camera.vflip = True
-        # camera.contrast = 10
+    # if(event.data == True):
+    #     # camera = PiCamera()
+    #     # time.sleep(2)
+    #     # camera.resolution = (1280, 720)
+    #     # camera.vflip = True
+    #     # camera.contrast = 10
 
-        # file_name = "/home/pi/Pictures/video_" + str(time.time()) + ".h264"
+    #     # file_name = "/home/pi/Pictures/video_" + str(time.time()) + ".h264"
 
-        # print("Start recording...")
-        # camera.start_recording(file_name)
-        # camera.wait_recording(10)
-        # camera.stop_recording()
-        # print("Done.")
-        storage_client = storage.Client.from_service_account_info(credentials_dict)
-        bucket = storage_client.bucket('mysample-bucket-videos')
-        cmd = 'libcamera-vid -t 7000 -o test.h264'
-        for i in range(0,10):
-            os.system(cmd)
-            time.sleep(10)
-            command = "MP4Box -add test.h264 test.mp4"
-            os.system(command)
-            time.sleep(10)
-            destination_blob_name = 'video_' + str(time.time()) + '.mp4'
-            source_file_name = 'test.mp4'
+    #     # print("Start recording...")
+    #     # camera.start_recording(file_name)
+    #     # camera.wait_recording(10)
+    #     # camera.stop_recording()
+    #     # print("Done.")
+    #     storage_client = storage.Client.from_service_account_info(credentials_dict)
+    #     bucket = storage_client.bucket('mysample-bucket-videos')
+    #     cmd = 'libcamera-vid -t 7000 -o test.h264'
+    #     for i in range(0,10):
+    #         os.system(cmd)
+    #         time.sleep(10)
+    #         command = "MP4Box -add test.h264 test.mp4"
+    #         os.system(command)
+    #         time.sleep(10)
+    #         destination_blob_name = 'video_' + str(time.time()) + '.mp4'
+    #         source_file_name = 'test.mp4'
 
-            blob = bucket.blob(destination_blob_name)
-            blob.upload_from_filename(source_file_name)
+    #         blob = bucket.blob(destination_blob_name)
+    #         blob.upload_from_filename(source_file_name)
 
-            print(
-                "File {} uploaded to {}.".format(
-                    source_file_name, destination_blob_name
-                )
-            )
-            os.system('rm test.h264')
-            os.system('rm test.mp4')
-            time.sleep(5)
+    #         print(
+    #             "File {} uploaded to {}.".format(
+    #                 source_file_name, destination_blob_name
+    #             )
+    #         )
+    #         os.system('rm test.h264')
+    #         os.system('rm test.mp4')
+    #         time.sleep(5)
 
 
                     
