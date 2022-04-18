@@ -41,6 +41,16 @@ default_app = firebase_admin.initialize_app(cred_obj, {
   'storageBucket':"womens-safety-2022.appspot.com"
     })
 
+ref = db.reference("/")
+filename = "sensor_heartBeatRate.csv"
+with open(filename, 'r') as csvfile: 
+    # creating a csv writer object 
+    reader = csv.reader(csvfile) 
+    for rows in reader:
+        ref.child("heartrate").set(rows[0])
+        ref.child("oxygen").set(rows[1])
+        print('sending data to firebase')
+
 def listener(event):
     if(event.data == True):
         # camera = PiCamera()
@@ -80,10 +90,6 @@ def listener(event):
             os.system('rm test.mp4')
             time.sleep(5)
 
-
-                    
-
-
     print("DATA FROM FIREBASE: ", event.data)
     print(event.event_type)  # can be 'put' or 'patch'
     print(event.path)  # relative to the reference, it seems
@@ -91,15 +97,7 @@ def listener(event):
 
 db.reference('monitor-mode', app= default_app).listen(listener)
 
-ref = db.reference("/")
-filename = "sensor_heartBeatRate.csv"
-with open(filename, 'r') as csvfile: 
-    # creating a csv writer object 
-    reader = csv.reader(csvfile) 
-    for rows in reader:
-        ref.child("heartrate").set(rows[0])
-        ref.child("oxygen").set(rows[1])
-        print('sending data to firebase')
+
 
 
 
