@@ -99,6 +99,7 @@ with open(filename, 'r') as csvfile:
     for rows in reader:
         ref.child("heartrate").set(rows[0])
         ref.child("oxygen").set(rows[1])
+        print('sending data to firebase')
 
 
 
