@@ -57,7 +57,7 @@ def listener(event):
         # camera.stop_recording()
         # print("Done.")
         # storage_client = storage.Client.from_service_account_info(credentials_dict)
-        bucket = storage.bucket('womens-safety-2022')
+        bucket = storage.bucket()
         cmd = 'libcamera-vid -t 7000 -o test.h264'
         for i in range(0,10):
             os.system(cmd)
