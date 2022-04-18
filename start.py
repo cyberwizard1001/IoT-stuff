@@ -22,9 +22,9 @@ while True:
     hrm.stop_sensor()
     print('sensor stoped!')
 
-    cmd = 'python sendCSV.py'
-    os.system(cmd)
-    time.sleep(10)
-    filename = "sensor_heartBeatRate.csv"
-    with open(filename, 'w') as f:
-        f.truncate()
+    # cmd = 'python sendCSV.py'
+    # os.system(cmd)
+    # time.sleep(10)
+    # filename = "sensor_heartBeatRate.csv"
+    # with open(filename, 'w') as f:
+    #     f.truncate()
