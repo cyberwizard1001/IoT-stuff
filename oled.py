@@ -33,7 +33,7 @@ def updateOLED():
         print(datetime.now().strftime("%I:%M"))
         oled.image(image)
         oled.show()
-        time.sleep(60)
+        time.sleep(30)
 
 
 if __name__ == "__main__":
