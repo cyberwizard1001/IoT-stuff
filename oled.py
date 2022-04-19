@@ -1,6 +1,7 @@
 from datetime import datetime
 from tkinter.tix import Tree
 import os
+import time
 
 import adafruit_ssd1306
 import board
@@ -31,7 +32,7 @@ def updateOLED():
         draw.text((25, 15), datetime.now().strftime("%I:%M"), font=font, fill=255)
         oled.image(image)
         oled.show()
-        os.sleep(1000)
+        time.sleep(60)
 
 
 if __name__ == "__main__":
