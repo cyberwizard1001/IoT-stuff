@@ -30,6 +30,7 @@ def updateOLED():
     # Draw the text (x, y)
     while True:
         draw.text((25, 15), datetime.now().strftime("%I:%M"), font=font, fill=255)
+        print(datetime.now().strftime("%I:%M"))
         oled.image(image)
         oled.show()
         time.sleep(60)
